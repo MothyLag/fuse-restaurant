@@ -15,8 +15,8 @@ export default props => {
 	const { fields = [], id, datas = {} } = props;
 	// const [dataForm, setDataForm] = useState(datas);
 	// useEffect para escuchar el ciclo de vida
-debugger
-console.log(fields)
+// debugger
+// console.log(fields)
 	return (
 		// define el id del formulario al del padre
 		<form id={id} autoComplete="off">
