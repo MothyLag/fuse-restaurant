@@ -11,6 +11,10 @@ const stylesSection = {
 	background: 'orange'
 };
 
+const newStylesDiv = {
+	background: '#639'
+}
+
 const HeaderSalon = props => {
 	// props
 	const { TipoSala, IdEdit = '' } = props;
@@ -43,7 +47,7 @@ const HeaderSalon = props => {
 				</div>
 			</section>
 			{IdChange ? (
-				<div>
+				<div style={newStylesDiv}>
 					<FormEdit id="2" fields={InputFields} />
 				</div>
 			) : null}

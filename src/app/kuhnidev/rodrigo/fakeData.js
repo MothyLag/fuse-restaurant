@@ -61,7 +61,7 @@ export const kit = {
 				type: 'text',
 				required: true,
 				regex: '[A-Za-z0-9 \\s]{0,}'
-			},			
+			},
 			{
 				name: 'cantidad',
 				disabled: false,
@@ -96,6 +96,15 @@ export const kit = {
 				type: 'text',
 				required: true,
 				regex: '[A-Za-z0-9 \\s]{0,}'
+			},
+			{
+				name: 'diasrevision',
+				disabled: false,
+				type: 'select',
+				required: true,
+				options: [{ dia: 'Lunes' }, { dia: 'Martes' }, { dia: 'Jueves' }, { dia: 'Viernes' }],
+				regex: '[A-Za-z0-9 \\s]{0,}',
+				label: 'dia'
 			}
 			// {
 			//   name: "usufecha",
