@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
 import Table from '@material-ui/core/Table';
 import TableHead from '@material-ui/core/TableHead';
@@ -10,64 +10,62 @@ import TableCell from '@material-ui/core/TableCell';
 // import Chip from '@material-ui/core/Chip';
 
 export default props => {
-    const { columns, rows } = props;
+	const { columns, rows } = props;
 
-    const [currentColumns, setCurrentColumns] = useState(null);
+	const [currentColumns, setCurrentColumns] = useState(null);
 
-    useEffect(() => {
-        if (columns) {
-            setCurrentColumns(columns);
-        }
-    }, [columns]);
+	useEffect(() => {
+		if (columns) {
+			setCurrentColumns(columns);
+		}
+	}, [columns]);
 
-    const actualColumns = currentColumns || ["No hay columnas"];
+	const actualColumns = currentColumns || ['No hay columnas'];
 
-    const [currentRows, setCurrentRows] = useState(null);
+	const [currentRows, setCurrentRows] = useState(null);
 
-    useEffect(() => {
-        if (rows) {
-            setCurrentRows(rows);
-        }
-    }, [rows]);
+	useEffect(() => {
+		if (rows) {
+			setCurrentRows(rows);
+		}
+	}, [rows]);
 
-    const actualRows = currentRows || [[{
-        align: "center",
-        render: "No hay filas"
-    }]];
+	const actualRows = currentRows || [
+		[
+			{
+				align: 'center',
+				render: 'No hay filas'
+			}
+		]
+	];
 
-    return (
-        <Table>
-            <TableHead>
-                <TableRow>
-                    {
-                        actualColumns.map((column, index) => (
-                            <TableCell key={`column-${index}`}>{column}</TableCell>
-                        ))
-                    }
-                </TableRow>
-            </TableHead>
-            <TableBody>
-                {
-                    actualRows.map((cells, index) => (
-                        <TableRow key={`row-${index}`}>
-                            {
-                                cells.map((cell, index) => {
-                                    const { align, render } = cell;
-                                    return (
-                                        <TableCell
-                                            key={`cell-${index}`}
-                                            colSpan={actualColumns.length - cells.length + 1}
-                                            align={align}
-                                        >
-                                            {render}
-                                        </TableCell>
-                                    );
-                                })
-                            }
-                        </TableRow>
-                    ))
-                }
-            </TableBody>
-        </Table>
-    );
+	return (
+		<Table>
+			<TableHead>
+				<TableRow>
+					{actualColumns.map((column, index) => (
+						<TableCell key={`column-${index}`}>{column}</TableCell>
+					))}
+				</TableRow>
+			</TableHead>
+			<TableBody>
+				{actualRows.map((cells, index) => (
+					<TableRow key={`row-${index}`}>
+						{cells.map((cell, index) => {
+							const { align, render } = cell;
+							return (
+								<TableCell
+									key={`cell-${index}`}
+									colSpan={actualColumns.length - cells.length + 1}
+									align={align}
+								>
+									{render}
+								</TableCell>
+							);
+						})}
+					</TableRow>
+				))}
+			</TableBody>
+		</Table>
+	);
 };
