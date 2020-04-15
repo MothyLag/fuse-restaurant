@@ -13,7 +13,7 @@ import Formsy from 'formsy-react';
 import Input from '../input/Input';
 
 export default props => {
-	const { fields = [], id, datas = {} } = props;
+	const { fields = [], id, datas = {}, mesa = '' } = props;
 	// const [dataForm, setDataForm] = useState(datas);
 	// useEffect para escuchar el ciclo de vida
 	// debugger
@@ -52,6 +52,7 @@ export default props => {
 			// ref={formRef}
 			className="flex flex-col justify-center"
 		>
+			<div>Mesa:  {mesa}</div>			
 			<div className="row">
 				{/* mapea lo obtenido en la doc de la api */}
 				{fields.map((column, index) => {
