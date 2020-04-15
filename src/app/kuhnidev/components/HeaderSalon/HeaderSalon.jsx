@@ -33,7 +33,13 @@ const HeaderSalon = props => {
 			<section style={stylesSection}>
 				<h2>{TipoSala}</h2>
 				<div>
-					<ButtonC title="Nueva sala" icon="add" handleChange={HandleForm} />
+					<ButtonC
+						title="Nueva sala"
+						icon="add"
+						handleChange={HandleForm}
+						color="primary"
+						diabledTf={false}
+					/>
 				</div>
 			</section>
 			{IdChange ? (

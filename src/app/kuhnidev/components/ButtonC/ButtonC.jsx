@@ -13,7 +13,7 @@ const sizeIcon = makeStyles({
 	}
 });
 const ButtonC = props => {
-	const { title = '', icon = '', handleChange = '' } = props;
+	const { title = '', icon = '', handleChange = '', color = 'default', diabledTf = false } = props;
 	const onHandleDeleteTable = variable => {
 		console.log('hi Delete', variable);
 	};
@@ -40,7 +40,7 @@ const ButtonC = props => {
 
 	return (
 		<>
-			<Button variant="contained" color="primary" onClick={() => onHandleEditTable(title)}>
+			<Button variant="contained" color={color} onClick={() => onHandleEditTable(title)} disabled={diabledTf}>
 				{newIcon} {title}
 			</Button>
 		</>
