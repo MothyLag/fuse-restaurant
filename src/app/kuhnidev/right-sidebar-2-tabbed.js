@@ -114,15 +114,16 @@ function CardedRightSidebar2TabbedSample() {
 				</div>
 			}
 			rightSidebarHeader={
-				<div className="" style={{
+				<div style={{
 					display: 'flex',
 					height: '100%',
 					flexDirection: 'column',
 					justifyContent: 'space-between',
 					paddingTop: '2.4rem'
-				}}>
+					}}
+				>
 					<h4>Sidebar Header</h4>
-					<HeaderSalon TipoSala="Sala"/>
+					<HeaderSalon TipoSala="Sala" IdEdit='34'/>
 				</div>
 			}
 			rightSidebarContent={
