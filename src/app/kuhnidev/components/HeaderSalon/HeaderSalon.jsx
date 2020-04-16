@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import FormEdit from '../FormEdit/FormEdit';
-import { data, kit } from '../../rodrigo/fakeData';
+import { data, kit , fakeDataTwo} from '../../rodrigo/fakeData';
 
 const stylesSection = {
 	width: '100%',
@@ -31,7 +31,7 @@ const HeaderSalon = props => {
 				<h2>{TipoSala}</h2>
 			</section>
 			<div style={newStylesDiv}>
-				<FormEdit id="2" fields={InputFields} mesa="30" />
+				<FormEdit id="2" fieldsApi={fakeDataTwo} />
 			</div>
 			<div>
 				<h2>hju</h2>

@@ -126,3 +126,47 @@ export const kit = {
 	title: 'Kit Elementos',
 	selected: false
 };
+
+export const Fake = [
+	{
+		zone: 'zona 1',
+		tables: [
+			{ number: 1, shape: 'redonda', size: 'chica', col: 1, row: 3, busy: true, group: [1, 2] },
+			{ number: 2, shape: 'cuadrada', size: 'chica', col: 1, row: 4, busy: true, group: [1, 2] },
+			{ number: 3, shape: 'cuadrada', size: 'chica', col: 1, row: 6, busy: false, group: [] }
+		]
+	},
+	{
+		zone: 'zona 2',
+		tables: [{ number: 1, shape: 'redonda', size: 'chica', col: 1, row: 3, busy: true, group: [] }]
+	}
+];
+
+export const fakeDataTwo = [
+	{
+		name: 'zona1',
+		label: 'zona1',
+		collection: 'zona1',
+		fields: [
+			{
+				name: 'zona1',
+				tables: [
+					{ number: 1, shape: 'redonda', size: 'chica', col: 1, row: 3, busy: true, group: [1, 2] },
+					{ number: 2, shape: 'cuadrada', size: 'chica', col: 1, row: 4, busy: true, group: [1, 2] },
+					{ number: 3, shape: 'cuadrada', size: 'chica', col: 1, row: 6, busy: false, group: [] }
+				]
+			}
+		]
+	},
+	{
+		name: 'zona2',
+		label: 'zona2',
+		collection: 'zona2',
+		fields: [
+			{
+				name: 'zona2',
+				tables: [{ number: 1, shape: 'redonda', size: 'chica', col: 1, row: 3, busy: true, group: [] }]
+			}
+		]
+	}
+];
