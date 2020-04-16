@@ -5,11 +5,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
+import { TextFieldFormsy } from '@fuse/core/formsy';
 
 const nwStyle = makeStyles({
 	root: {
 		width: '180px'
-	}	
+	}
 });
 const labelColor = {
 	color: '#fff'
@@ -29,7 +30,8 @@ export default props => {
 		required,
 		index,
 		i,
-		api
+		api,
+		stylesDiv
 	} = props;
 	const [dataOptions, setDataOptions] = useState([]);
 	const [selectValue, setSelectValue] = useState(defaultValue);
@@ -148,12 +150,12 @@ export default props => {
 		);
 
 	return (
-		<div className="form-group" key={`input${i}`}>
+		<div key={`input${i}`} style={stylesDiv}>
 			{/* <label htmlFor={name}>{name}</label> */}
-			<TextField
+			<TextFieldFormsy
 				label={name}
 				variant="outlined"
-				color='secondary'
+				color="primary"
 				disabled={disabled}
 				required={required}
 				id={id}
