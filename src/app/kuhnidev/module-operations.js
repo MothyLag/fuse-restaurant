@@ -7,6 +7,7 @@ import FusePageCarded from '@fuse/core/FusePageCarded';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 
+import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
@@ -95,6 +96,7 @@ const useOperationRecords = (baseUrl, moduleName, operationName) => {
 	return { records, error };
 };
 
+
 export default () => {
 	// const baseUrl = "http://192.168.1.104:4001";
 	const baseUrl = "http://132.148.165.49:4001";
@@ -127,6 +129,27 @@ export default () => {
 			setTabsReady(true);
 		}
 	}, [schema]);
+
+	const addZone = (tabs) => {
+		
+		let addObject = tabs;
+		let newObject = {};
+
+		Object.keys(tabs[0]).map(item => {
+			newObject[item] = 'new';
+		});
+
+		addObject.push(newObject);
+		console.log(addObject);
+		setTabs(addObject);
+		if (tabsReady === false)
+		{
+			setTabsReady(true);
+		}
+		else {
+			setTabsReady(false);
+		}
+	};
 
 	useEffect(() => {
 		if (tabsReady) {
@@ -232,7 +255,10 @@ export default () => {
 							</IconButton>
 						</Hidden>
 						<div className="flex-1">
-							<h4>Módulo Staff</h4>
+							<h4>Módulo de ZONAS</h4>
+						</div>
+						<div >
+							<Button variant="contained" onClick={() => addZone(tabs)}>nueva zona</Button>
 						</div>
 					</div>
 				</div>
