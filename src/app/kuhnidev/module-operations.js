@@ -7,6 +7,7 @@ import FusePageCarded from '@fuse/core/FusePageCarded';
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 
+import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
@@ -37,7 +38,56 @@ const useModuleSchema = (baseUrl, moduleName) => {
 				return;
 			}
 			const schema = await response.json();
-			setSchema(schema);
+			//setSchema(schema);
+			console.log(schema);
+			let data = [
+				{
+					name: 'zona1',
+					label: 'zona1',
+					collection: 'zona1',
+					fields: [
+						{
+							name: 'zona1',
+							tables: [
+								{
+									number: 1,
+									shape: 'redonda',
+									size: 'chica',
+									col: 1,
+									row: 3,
+									busy: true,
+									group: [1, 2]
+								},
+								{
+									number: 2,
+									shape: 'cuadrada',
+									size: 'chica',
+									col: 1,
+									row: 4,
+									busy: true,
+									group: [1, 2]
+								},
+								{ number: 3, shape: 'cuadrada', size: 'chica', col: 1, row: 6, busy: false, group: [] }
+							]
+						}
+					]
+				},
+				{
+					name: 'zona2',
+					label: 'zona2',
+					collection: 'zona2',
+					fields: [
+						{
+							name: 'zona2',
+							tables: [
+								{ number: 1, shape: 'redonda', size: 'chica', col: 1, row: 3, busy: true, group: [] }
+							]
+						}
+					]
+				}
+			];
+
+			setSchema(data);
 		})();
 	}, [baseUrl, moduleName]);
 
@@ -54,16 +104,16 @@ const useOperationRecords = (baseUrl, moduleName, operationName) => {
 		if (operationName) {
 			setError(null);
 			setRecords(null);
-			(async () => {
-				const response = await fetch(url);
-				if (!response.ok) {
-					const error = await response.text();
-					setError(error);
-					return;
-				}
-				const records = await response.json();
-				setRecords(records);
-			})();
+			// (async () => {
+			// 	const response = await fetch(url);
+			// 	if (!response.ok) {
+			// 		const error = await response.text();
+			// 		setError(error);
+			// 		return;
+			// 	}
+			// 	const records = await response.json();
+			// 	setRecords(records);
+			// })();
 		}
 	}, [baseUrl, moduleName, operationName]);
 
@@ -95,10 +145,29 @@ export default () => {
 	useEffect(() => {
 		if (schema) {
 			console.log(schema);
-			setTabs(schema.operations);
+			//setTabs(schema.operations);
+			setTabs(schema);
 			setTabsReady(true);
 		}
 	}, [schema]);
+
+	const addZone = tabs => {
+		let addObject = tabs;
+		let newObject = {};
+
+		Object.keys(tabs[0]).map(item => {
+			newObject[item] = 'new';
+		});
+
+		addObject.push(newObject);
+		console.log(addObject);
+		setTabs(addObject);
+		if (tabsReady === false) {
+			setTabsReady(true);
+		} else {
+			setTabsReady(false);
+		}
+	};
 
 	useEffect(() => {
 		if (tabsReady) {
@@ -200,7 +269,12 @@ export default () => {
 							</IconButton>
 						</Hidden>
 						<div className="flex-1">
-							<h4>Módulo Staff</h4>
+							<h4>Módulo de ZONAS</h4>
+						</div>
+						<div>
+							<Button variant="contained" onClick={() => addZone(tabs)}>
+								nueva zona
+							</Button>
 						</div>
 					</div>
 				</div>
@@ -243,3 +317,20 @@ export default () => {
 		/>
 	);
 };
+
+// [
+// 	{
+// 		zone:'zona 1',
+// 		tables:[
+// 			{number:1,shape:'redonda',size:'chica',col:1,row:3,busy:true,group:[1,2]},
+// 			{number:2,shape:'cuadrada',size:'chica',col:1,row:4,busy:true,group:[1,2]},
+// 			{number:3,shape:'cuadrada',size:'chica',col:1,row:6,busy:false,group:[]},
+// 		]
+// 	},
+// 	{
+// 		zone:'zona 2',
+// 		tables:[
+// 			{number:1,shape:'redonda',size:'chica',col:1,row:3,busy:true,group:[]},
+// 		]
+// 	}
+// ]

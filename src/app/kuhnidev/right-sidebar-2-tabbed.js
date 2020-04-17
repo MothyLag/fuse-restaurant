@@ -9,6 +9,9 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import React, { useRef, useState } from 'react';
 
+// Rod
+import HeaderSalon from './components/HeaderSalon/HeaderSalon';
+//
 const useStyles = makeStyles({
 	layoutRoot: {}
 });
@@ -111,12 +114,20 @@ function CardedRightSidebar2TabbedSample() {
 				</div>
 			}
 			rightSidebarHeader={
-				<div className="p-24">
+				<div style={{
+					display: 'flex',
+					height: '100%',
+					flexDirection: 'column',
+					justifyContent: 'space-between',
+					paddingTop: '2.4rem'
+					}}
+				>
 					<h4>Sidebar Header</h4>
+					<HeaderSalon TipoSala="Sala" IdEdit='34'/>
 				</div>
 			}
 			rightSidebarContent={
-				<div className="p-24">
+				<div className="p-24">					
 					<h4>Sidebar Content</h4>
 					<br />
 					<DemoSidebarContent />
