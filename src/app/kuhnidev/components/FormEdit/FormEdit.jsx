@@ -21,6 +21,8 @@ export default props => {
 	// const [dataForm, setDataForm] = useState(datas);
 	const [apiDataCalled, setApiDataCalled] = useState();
 	const [openForm, SetOpenForm] = useState(false);
+	const [openButtonD, SetOpenButtonD] = useState(false);
+	const [openButtonE, SetOpenButtonE] = useState(false);
 	const {
 		0: {
 			name,
@@ -72,8 +74,31 @@ export default props => {
 		background: 'orange'
 	};
 
-	const onHandleDeleteSala = () => {
+	const onHandleDeleteSala = variable => {
+		const zonaId = variable;
 		console.log('delete');
+		(async function() {
+			const response = await fetch(`https://kapi-marcas.badillosoft.now.sh/api/zonas/${zonaId}/delete`, {
+				method: 'POST',
+				headers: {
+					// "Content-Type": "x-www-form-urlencoded"
+					'Content-Type': 'application/json'
+				},
+				mode: 'cors',
+				body: JSON.stringify({
+					//data 
+				})
+			});
+
+			if (!response.ok) {
+				const error = await response.text();
+				console.warn(error);
+				return;
+			}
+
+			const json = await response.json();
+			console.log(json);
+		})();
 	};
 
 	return (
@@ -87,10 +112,19 @@ export default props => {
 						variant="contained"
 						color="primary"
 						onClick={onHandleDeleteSala}
+						disabled={openButtonD}
 					>
 						<DeleteForeverIcon />
 					</Button>
-					<Button variant="contained" color="primary" onClick={() => SetOpenForm(true)}>
+					<Button 
+						variant="contained" 
+						color="primary" 
+						onClick={() => {
+							SetOpenForm(true); 
+							SetOpenButtonD(true);
+						}}
+						disabled={openButtonE}
+						>
 						<EditIcon />
 					</Button>
 				</div>
@@ -102,12 +136,14 @@ export default props => {
 							position: 'absolute',
 							right: '1%'
 						}}
-						onClick={() => SetOpenForm(false)}
+						onClick={() => {SetOpenForm(false);SetOpenButtonD(true);
+						}}
 					>
 						<CancelIcon />
 					</Button>
 					<Formsy
 						onValidSubmit={async data => {
+							SetOpenButtonD(true)
 							const response = await fetch('https://kapi-marcas.badillosoft.now.sh/api/marcas/new', {
 								method: 'POST',
 								headers: {
@@ -130,7 +166,7 @@ export default props => {
 							}
 
 							const json = await response.json();
-
+							SetOpenButtonD(false);
 							console.log(json);
 						}}
 						// onValid={enableButton}
