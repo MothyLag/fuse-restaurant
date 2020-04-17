@@ -13,8 +13,8 @@ import Hidden from '@material-ui/core/Hidden';
 
 import DemoContent from '@fuse/core/DemoContent';
 import DemoSidebarContent from '@fuse/core/DemoSidebarContent';
-
-import OneTable from "./components/OneTable";
+import { Mesh } from '../kuhnidev/components/mesh/mesh';
+import OneTable from './components/OneTable';
 
 const useStyles = makeStyles({
 	layoutRoot: {}
@@ -72,23 +72,21 @@ const useOperationRecords = (baseUrl, moduleName, operationName) => {
 
 export default () => {
 	// const baseUrl = "http://192.168.1.104:4001";
-	const baseUrl = "http://132.148.165.49:4001";
+	const baseUrl = 'http://132.148.165.49:4001';
 
 	const classes = useStyles();
 
 	const pageLayout = useRef(null);
 
-	const { schema, error: schemaError } = useModuleSchema(baseUrl, "staff");
+	const { schema, error: schemaError } = useModuleSchema(baseUrl, 'staff');
 
 	const [operationName, setOperationName] = useState(null);
 
-	const { records, error: recordsError } = useOperationRecords(
-		baseUrl, "staff", operationName
-	);
+	const { records, error: recordsError } = useOperationRecords(baseUrl, 'staff', operationName);
 
 	const [tabs, setTabs] = useState([
 		{
-			label: "Cargando operaciones..."
+			label: 'Cargando operaciones...'
 		}
 	]);
 
@@ -122,7 +120,7 @@ export default () => {
 
 	useEffect(() => {
 		if (selectedTab) {
-			console.log("selectedTab", selectedTab);
+			console.log('selectedTab', selectedTab);
 			setOperationName(selectedTab.name);
 			setColumns(selectedTab.fields.map(field => field.label || field.name));
 			setRows(null);
@@ -133,12 +131,12 @@ export default () => {
 
 	useEffect(() => {
 		if (records) {
-			console.log("records", records);
+			console.log('records', records);
 			const rows = [];
 			for (let record of records.results) {
 				const cells = [];
 				for (let columnName of columns) {
-					const value = record[columnName] || "-";
+					const value = record[columnName] || '-';
 
 					let render = <span>{value}</span>;
 
@@ -146,23 +144,19 @@ export default () => {
 
 					if (schema) {
 						// console.log("schema", schema);
-						if (schema.type === "boolean") {
-							render = (
-								value ? (
-									<Icon className="text-green text-20">check_circle</Icon>
-								) : (
-										<Icon className="text-red text-20">remove_circle</Icon>
-									)
+						if (schema.type === 'boolean') {
+							render = value ? (
+								<Icon className="text-green text-20">check_circle</Icon>
+							) : (
+								<Icon className="text-red text-20">remove_circle</Icon>
 							);
 						}
 					}
 
-					cells.push(
-						{
-							align: "left",
-							render
-						}
-					);
+					cells.push({
+						align: 'left',
+						render
+					});
 				}
 				rows.push(cells);
 			}
@@ -170,23 +164,23 @@ export default () => {
 		}
 	}, [records]);
 
-	const newModeFields = selectedTab ? (
-		selectedTab.fields.map((field, index) => {
-			const { name, type, required, edit, relation, description } = field;
-			let render = <span>no editable</span>;
-			if (edit) {
-				if (type === "string") {
-					render = <input required={required} placeholder={name} />;
+	const newModeFields = selectedTab
+		? selectedTab.fields.map((field, index) => {
+				const { name, type, required, edit, relation, description } = field;
+				let render = <span>no editable</span>;
+				if (edit) {
+					if (type === 'string') {
+						render = <input required={required} placeholder={name} />;
+					}
 				}
-			}
-			return (
-				<div key={`field-${index}`}>
-					<span>{name}</span>
-					{render}
-				</div>
-			);
-		})
-	) : null;
+				return (
+					<div key={`field-${index}`}>
+						<span>{name}</span>
+						{render}
+					</div>
+				);
+		  })
+		: null;
 
 	return (
 		<FusePageCarded
@@ -221,19 +215,15 @@ export default () => {
 					scrollButtons="off"
 					className="w-full h-64"
 				>
-					{
-						tabs.map((tab, index) => {
-							const { label } = tab;
-							return (
-								<Tab key={`tab-${index}`} className="h-64" label={label} />
-							);
-						})
-					}
+					{tabs.map((tab, index) => {
+						const { label } = tab;
+						return <Tab key={`tab-${index}`} className="h-64" label={label} />;
+					})}
 				</Tabs>
 			}
 			content={
 				<div className="p-24">
-					<OneTable columns={columns} rows={rows} />
+					<Mesh />
 				</div>
 			}
 			rightSidebarHeader={
@@ -252,4 +242,4 @@ export default () => {
 			ref={pageLayout}
 		/>
 	);
-}
+};
