@@ -61,7 +61,7 @@ export const kit = {
 				type: 'text',
 				required: true,
 				regex: '[A-Za-z0-9 \\s]{0,}'
-			},			
+			},
 			{
 				name: 'cantidad',
 				disabled: false,
@@ -96,6 +96,15 @@ export const kit = {
 				type: 'text',
 				required: true,
 				regex: '[A-Za-z0-9 \\s]{0,}'
+			},
+			{
+				name: 'diasrevision',
+				disabled: false,
+				type: 'select',
+				required: true,
+				options: [{ dia: 'Lunes' }, { dia: 'Martes' }, { dia: 'Jueves' }, { dia: 'Viernes' }],
+				regex: '[A-Za-z0-9 \\s]{0,}',
+				label: 'dia'
 			}
 			// {
 			//   name: "usufecha",
@@ -117,3 +126,47 @@ export const kit = {
 	title: 'Kit Elementos',
 	selected: false
 };
+
+export const Fake = [
+	{
+		zone: 'zona 1',
+		tables: [
+			{ number: 1, shape: 'redonda', size: 'chica', col: 1, row: 3, busy: true, group: [1, 2] },
+			{ number: 2, shape: 'cuadrada', size: 'chica', col: 1, row: 4, busy: true, group: [1, 2] },
+			{ number: 3, shape: 'cuadrada', size: 'chica', col: 1, row: 6, busy: false, group: [] }
+		]
+	},
+	{
+		zone: 'zona 2',
+		tables: [{ number: 1, shape: 'redonda', size: 'chica', col: 1, row: 3, busy: true, group: [] }]
+	}
+];
+
+export const fakeDataTwo = [
+	{
+		name: 'zona1',
+		label: 'zona1',
+		collection: 'zona1',
+		fields: [
+			{
+				name: 'zona1',
+				tables: [
+					{ number: 1, shape: 'redonda', size: 'chica', col: 1, row: 3, busy: true, group: [1, 2] },
+					{ number: 2, shape: 'cuadrada', size: 'chica', col: 1, row: 4, busy: true, group: [1, 2] },
+					{ number: 3, shape: 'cuadrada', size: 'chica', col: 1, row: 6, busy: false, group: [] }
+				]
+			}
+		]
+	},
+	{
+		name: 'zona2',
+		label: 'zona2',
+		collection: 'zona2',
+		fields: [
+			{
+				name: 'zona2',
+				tables: [{ number: 1, shape: 'redonda', size: 'chica', col: 1, row: 3, busy: true, group: [] }]
+			}
+		]
+	}
+];

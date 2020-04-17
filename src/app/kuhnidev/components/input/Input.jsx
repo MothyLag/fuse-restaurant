@@ -1,7 +1,20 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from 'react';
+import TextField from '@material-ui/core/TextField';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import { makeStyles } from '@material-ui/core/styles';
+import { TextFieldFormsy } from '@fuse/core/formsy';
 
+const nwStyle = makeStyles({
+	root: {
+		width: '180px'
+	}
+});
+const labelColor = {
+	color: '#fff'
+};
 export default props => {
 	const {
 		name,
@@ -17,11 +30,12 @@ export default props => {
 		required,
 		index,
 		i,
-		api
+		api,
+		stylesDiv
 	} = props;
 	const [dataOptions, setDataOptions] = useState([]);
 	const [selectValue, setSelectValue] = useState(defaultValue);
-
+	const selectStyles = nwStyle();
 	const handleSelectChange = (setState, event) => {
 		setState(event.target.value);
 	};
@@ -72,7 +86,28 @@ export default props => {
 	if (type === 'select') {
 		return (
 			<div id={id} className="form-group" required={required}>
-				<label>{name}</label>
+				<FormControl className={selectStyles.root}>
+					<InputLabel id={id} style={labelColor}>
+						{name}
+					</InputLabel>
+					<Select
+						labelId={id}
+						onChangeCapture={e => handleSelectChange(setSelectValue, e)}
+						name={name}
+						defaultValue={selectValue}
+						disabled={disabled}
+					>
+						{dataOptions.length < 1 && <option value="NotFound">Valor no encontrado</option>}
+						{dataOptions.map((option, index) => {
+							return (
+								<MenuItem value={option[label]} key={`optionInput${index}`}>
+									{option[label]}
+								</MenuItem>
+							);
+						})}
+					</Select>
+				</FormControl>
+				{/* <label>{name}</label>
 				<select
 					onChangeCapture={e => handleSelectChange(setSelectValue, e)}
 					name={name}
@@ -88,7 +123,7 @@ export default props => {
 							</option>
 						);
 					})}
-				</select>
+				</select> */}
 			</div>
 		);
 	}
@@ -115,9 +150,28 @@ export default props => {
 		);
 
 	return (
-		<div className="form-group" key={`input${i}`}>
-			<label htmlFor={name}>{name}</label>
-			<input
+		<div key={`input${i}`} style={stylesDiv}>
+			{/* <label htmlFor={name}>{name}</label> */}
+			<TextFieldFormsy
+				label={name}
+				variant="outlined"
+				color="primary"
+				disabled={disabled}
+				required={required}
+				id={id}
+				// valida que se cumpla el regex en el input
+				pattern={regex ? String(regex) : '[a-zA-Z0-9 \\s]{0,}'}
+				// define el nombre del input
+				name={name}
+				// define el valor por defecto
+				defaultValue={defaultValue || ''}
+				autoComplete="off"
+				// define el tipo de input
+				type={type}
+				// define el placeholder del input
+				placeholder={placeholder}
+			/>
+			{/* <input
 				disabled={disabled}
 				required={required}
 				// concate los indices al id del padre y al nombre del input para crear un nuevo id
@@ -135,8 +189,7 @@ export default props => {
 				placeholder={placeholder}
 				className="form-control"
 				// define si el input es requerido
-				required={required}
-			/>
+			/> */}
 		</div>
 	);
 };
