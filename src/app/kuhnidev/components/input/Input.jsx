@@ -9,7 +9,8 @@ import { TextFieldFormsy } from '@fuse/core/formsy';
 
 const nwStyle = makeStyles({
 	root: {
-		width: '180px'
+		maxWidth: '250px',
+		width: '100%'
 	}
 });
 const labelColor = {
@@ -153,6 +154,7 @@ export default props => {
 		<div key={`input${i}`} style={stylesDiv}>
 			{/* <label htmlFor={name}>{name}</label> */}
 			<TextFieldFormsy
+			className={selectStyles.root}				
 				label={name}
 				variant="outlined"
 				color="primary"
