@@ -5,7 +5,7 @@ import FormEdit from '../FormEdit/FormEdit';
 const HeaderSalon = props => {
 	return (
 		<div>
-			<FormEdit id="2" fieldsApi={fakeDataTwo} />
+			<FormEdit id="2" fieldsApi={fakeDataTwo} showForm={true} />
 		</div>
 	);
 };

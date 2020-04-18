@@ -17,10 +17,10 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import Input from '../input/Input';
 
 export default props => {
-	const { fieldsApi = [], id, datas = {} } = props;
+	const { fieldsApi = [], id, datas = {}, showForm } = props;
 	// const [dataForm, setDataForm] = useState(datas);
 	const [apiDataCalled, setApiDataCalled] = useState();
-	const [openForm, SetOpenForm] = useState(false);
+	const [openForm, SetOpenForm] = useState(showForm);
 	const [openButtonD, SetOpenButtonD] = useState(false);
 	const [openButtonE, SetOpenButtonE] = useState(false);
 	const {
@@ -86,7 +86,7 @@ export default props => {
 				},
 				mode: 'cors',
 				body: JSON.stringify({
-					//data 
+					//data
 				})
 			});
 
@@ -99,6 +99,10 @@ export default props => {
 			const json = await response.json();
 			console.log(json);
 		})();
+	};
+
+	const onHandleCancel = () => {
+		SetOpenForm(false);
 	};
 
 	return (
@@ -116,15 +120,15 @@ export default props => {
 					>
 						<DeleteForeverIcon />
 					</Button>
-					<Button 
-						variant="contained" 
-						color="primary" 
+					<Button
+						variant="contained"
+						color="primary"
 						onClick={() => {
-							SetOpenForm(true); 
-							SetOpenButtonD(true);
+							SetOpenForm(true);
+							// SetOpenButtonD(true);
 						}}
 						disabled={openButtonE}
-						>
+					>
 						<EditIcon />
 					</Button>
 				</div>
@@ -136,14 +140,16 @@ export default props => {
 							position: 'absolute',
 							right: '1%'
 						}}
-						onClick={() => {SetOpenForm(false);SetOpenButtonD(true);
+						onClick={() => {
+							SetOpenForm(false);
+							// SetOpenButtonD(true);
 						}}
 					>
 						<CancelIcon />
 					</Button>
 					<Formsy
 						onValidSubmit={async data => {
-							SetOpenButtonD(true)
+							// SetOpenButtonD(true)
 							const response = await fetch('https://kapi-marcas.badillosoft.now.sh/api/marcas/new', {
 								method: 'POST',
 								headers: {
@@ -194,6 +200,9 @@ export default props => {
 							<div>uhuh</div>
 						)}
 						<div style={divStyleForm}>
+							<Button variant="contained" color="primary" onClick={onHandleCancel}>
+								Cancelar
+							</Button>
 							<Button type="submit" variant="contained" color="primary">
 								actualizar
 							</Button>
