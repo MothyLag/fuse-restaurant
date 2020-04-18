@@ -200,7 +200,7 @@ export default props => {
 							<div>uhuh</div>
 						)}
 						<div style={divStyleForm}>
-							<Button variant="contained" color="primary" onClick={onHandleCancel}>
+							<Button variant="contained" color="default" style={{marginRight: '20px'}} onClick={onHandleCancel}>
 								Cancelar
 							</Button>
 							<Button type="submit" variant="contained" color="primary">

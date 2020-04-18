@@ -152,7 +152,7 @@ export default props => {
 	return (
 		<div key={`input${i}`} style={stylesDiv}>
 			{/* <label htmlFor={name}>{name}</label> */}
-			<TextFieldFormsy
+			<TextFieldFormsy				
 				label={name}
 				variant="outlined"
 				color="primary"
