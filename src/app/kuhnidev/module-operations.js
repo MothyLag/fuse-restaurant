@@ -155,12 +155,12 @@ export default () => {
 		}
 	}, [schema]);
 
-	const addZone = tabs => {
+	const addZone = (data) => {
 		let addObject = tabs;
 		let newObject = {};
 
 		Object.keys(tabs[0]).map(item => {
-			newObject[item] = 'new';
+			newObject[item] = data.zone;
 			newObject.fields = [{name:'new'}]
 		});
 
@@ -326,7 +326,7 @@ export default () => {
 						?
 						<h4>{'< Seleccione una mesa'}</h4>
 						:
-						<Formsy>
+						<Formsy onValidSubmit={(data) => {addZone(data)}}>
 							<TextFieldFormsy
 								type="text"
 								name="zone"
@@ -335,7 +335,7 @@ export default () => {
 								required
 							/>
 							<Button variant="contained" onClick={() => {setButtonConfiguration(false);setNewZone(false);}}>cancelar</Button>
-							<Button variant="contained" color={'secondary'} onClick={() => {}}>guardar</Button>
+							<Button type='submit' variant="contained" color={'secondary'} onClick={() => {}}>guardar</Button>
 						</Formsy>
 						
 					}
