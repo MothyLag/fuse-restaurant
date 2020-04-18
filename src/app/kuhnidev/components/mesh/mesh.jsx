@@ -1,21 +1,22 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
-
+import './mesh.css';
+import { TableRestaurant } from '../table/table';
 export const Mesh = props => {
-	const {} = props;
+	let rows = new Array(20);
+	for (let i = 0; i < rows.length; i++) {
+		rows[i] = new Array(20);
+		rows[i].fill('none');
+	}
+	console.log(rows);
 	return (
-		<div>
-			<Grid container spacing={3}>
-				<Grid item xs={1}>
-					asd
-				</Grid>
-				<Grid item xs={9}>
-					asd
-				</Grid>
-				<Grid item xs={2}>
-					asd
-				</Grid>
-			</Grid>
-		</div>
+		<>
+			{rows.map((row, index) => (
+				<div key={`zoneRow${index}`} className="zone__row">
+					{row.map(column => {
+						return <TableRestaurant />;
+					})}
+				</div>
+			))}
+		</>
 	);
 };

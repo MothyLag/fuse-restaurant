@@ -1,0 +1,8 @@
+.zone__wrapper {
+	background-color: red;
+}
+
+.zone__row {
+	width: 2000px;
+	display: flex;
+}
