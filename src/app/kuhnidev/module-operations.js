@@ -6,11 +6,12 @@ import FusePageCarded from '@fuse/core/FusePageCarded';
 
 import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
-
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
+import Formsy from 'formsy-react';
+import {TextFieldFormsy} from '@fuse/core/formsy';
 
 import DemoContent from '@fuse/core/DemoContent';
 import DemoSidebarContent from '@fuse/core/DemoSidebarContent';
@@ -121,6 +122,9 @@ export default () => {
 
 	const [tabsReady, setTabsReady] = useState(false);
 
+	const [buttonConfiguration,setButtonConfiguration] = useState(false);
+	const [newZone,setNewZone] = useState(false);
+
 	useEffect(() => {
 		if (schema) {
 			console.log(schema);
@@ -137,11 +141,13 @@ export default () => {
 
 		Object.keys(tabs[0]).map(item => {
 			newObject[item] = 'new';
+			newObject.fields = [{name:'new'}]
 		});
 
 		addObject.push(newObject);
 		console.log(addObject);
 		setTabs(addObject);
+		
 		if (tabsReady === false)
 		{
 			setTabsReady(true);
@@ -255,10 +261,19 @@ export default () => {
 							</IconButton>
 						</Hidden>
 						<div className="flex-1">
-							<h4>Módulo de ZONAS</h4>
+							<h4>ZONAS Y MESAS</h4>
 						</div>
 						<div >
-							<Button variant="contained" onClick={() => addZone(tabs)}>nueva zona</Button>
+							{
+								buttonConfiguration !== true
+								?
+								<Button variant="contained" onClick={() => setButtonConfiguration(true)}>configurar zonas y mesas</Button>
+								: 
+								<React.Fragment>
+									<Button variant="contained" color={'secondary'} onClick={() => {setNewZone(true);}}>nueva zona</Button>
+									<Button variant="contained" onClick={() => {setButtonConfiguration(false);setNewZone(false);}}>cancelar</Button>
+								</React.Fragment>
+							}
 						</div>
 					</div>
 				</div>
@@ -290,14 +305,29 @@ export default () => {
 			}
 			rightSidebarHeader={
 				<div className="p-24">
-					<h4>Operación abierta</h4>
+					<h4>{String(tabs[selectedTabIndex].name).toLocaleUpperCase()}</h4>
 				</div>
 			}
 			rightSidebarContent={
 				<div className="p-24">
-					<h4>TODO: Grupos de campos</h4>
-					<br />
-					<span>{newModeFields}</span>
+					{
+						newZone !== true
+						?
+						<h4>{'< Seleccione una mesa'}</h4>
+						:
+						<Formsy>
+							<TextFieldFormsy
+								type="text"
+								name="zone"
+								label="Zone"
+								variant="outlined"
+								required
+							/>
+							<Button variant="contained" onClick={() => {setButtonConfiguration(false);setNewZone(false);}}>cancelar</Button>
+							<Button variant="contained" color={'secondary'} onClick={() => {}}>guardar</Button>
+						</Formsy>
+						
+					}
 				</div>
 			}
 			innerScroll
@@ -305,21 +335,3 @@ export default () => {
 		/>
 	);
 }
-
-
-// [
-// 	{
-// 		zone:'zona 1',
-// 		tables:[
-// 			{number:1,shape:'redonda',size:'chica',col:1,row:3,busy:true,group:[1,2]},
-// 			{number:2,shape:'cuadrada',size:'chica',col:1,row:4,busy:true,group:[1,2]},
-// 			{number:3,shape:'cuadrada',size:'chica',col:1,row:6,busy:false,group:[]},
-// 		]
-// 	},
-// 	{
-// 		zone:'zona 2',
-// 		tables:[
-// 			{number:1,shape:'redonda',size:'chica',col:1,row:3,busy:true,group:[]},
-// 		]
-// 	}
-// ]
