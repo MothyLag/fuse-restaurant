@@ -1,3 +1,4 @@
+/* eslint-disable default-case */
 import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -5,7 +6,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
-import { TextFieldFormsy } from '@fuse/core/formsy';
+import { TextFieldFormsy, SelectFormsy, CheckboxFormsy } from '@fuse/core/formsy';
 
 const nwStyle = makeStyles({
 	root: {
@@ -83,11 +84,39 @@ export default props => {
 			</div>
 		);
 	}
+	// debugger;
+	const MenuIt = variable => {
+		const redonda = ['redonda', 'cuadrada'];
+		const shape = ['chica', 'grande'];
+		const group = ['1', '2'];
+		switch (variable) {
+			case 'shape':
+				return redonda.map(redonde => <MenuItem value={redonde}> {redonde}</MenuItem>);
+			case 'size':
+				return shape.map(shap => <MenuItem value={shap}> {shap}</MenuItem>);
+			case 'group':
+				return group.map(grp => <MenuItem value={grp}> {grp}</MenuItem>);
 
+			default:
+				return null;
+		}
+	};
 	if (type === 'select') {
 		return (
-			<div id={id} className="form-group" required={required}>
-				<FormControl className={selectStyles.root}>
+			<div id={id} required={required} style={stylesDiv}>
+				<SelectFormsy
+					variant="outlined"
+					className={selectStyles.root}
+					name={name}
+					label={name}
+					value={selectValue}
+					defaultValue={selectValue}
+					onChangeCapture={e => handleSelectChange(setSelectValue, e)}
+					placeholder={name}
+				>
+					{MenuIt(name)}
+				</SelectFormsy>
+				{/* <FormControl className={selectStyles.root}>
 					<InputLabel id={id} style={labelColor}>
 						{name}
 					</InputLabel>
@@ -97,17 +126,16 @@ export default props => {
 						name={name}
 						defaultValue={selectValue}
 						disabled={disabled}
+						placeholder={name}
 					>
-						{dataOptions.length < 1 && <option value="NotFound">Valor no encontrado</option>}
-						{dataOptions.map((option, index) => {
-							return (
-								<MenuItem value={option[label]} key={`optionInput${index}`}>
-									{option[label]}
-								</MenuItem>
-							);
-						})}
-					</Select>
-				</FormControl>
+						{/* {dataOptions.length < 1 && <option value="NotFound">Valor no encontrado</option>} */}
+
+				{/* {dataOptions.map((option, index) => { */}
+				{/* return ( */}
+				{/* );
+						})} */}
+				{/* </Select> */}
+				{/* </FormControl> */}
 				{/* <label>{name}</label>
 				<select
 					onChangeCapture={e => handleSelectChange(setSelectValue, e)}
@@ -149,12 +177,26 @@ export default props => {
 				</label>
 			</div>
 		);
-
+	if (type === 'text' && name === 'busy') {
+		return (
+			<div id={id} required={required} style={stylesDiv}>
+				<CheckboxFormsy
+					variant="outlined"
+					name={name}
+					value={value}
+					label={name}
+					validations={{
+						equals: true
+					}}
+				/>
+			</div>
+		);
+	}
 	return (
 		<div key={`input${i}`} style={stylesDiv}>
 			{/* <label htmlFor={name}>{name}</label> */}
 			<TextFieldFormsy
-			className={selectStyles.root}				
+				className={selectStyles.root}
 				label={name}
 				variant="outlined"
 				color="primary"

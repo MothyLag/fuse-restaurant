@@ -187,21 +187,36 @@ export default props => {
 						row: 3
 						busy: true */}
 						{ObjectTable ? (
-							ObjectT2.map(item => (
+							ObjectT2.map((item, i) => (
 								<Input
 									stylesDiv={divStyleForm}
 									name={item[0]}
-									type="text"
+									type={
+										item[0] !== 'number' &&
+										item[0] !== 'col' &&
+										item[0] !== 'row' &&
+										item[0] !== 'busy'
+											? 'select'
+											: 'text'
+									}
 									placeholder={item[1]}
 									label={item[0]}
 									value={item[1]}
+									disabled={false}
+									defaultValue={item[1]}
+									id={i}
 								/>
 							))
 						) : (
 							<div>uhuh</div>
 						)}
 						<div style={divStyleForm}>
-							<Button variant="contained" color="default" style={{marginRight: '20px'}} onClick={onHandleCancel}>
+							<Button
+								variant="contained"
+								color="default"
+								style={{ marginRight: '20px' }}
+								onClick={onHandleCancel}
+							>
 								Cancelar
 							</Button>
 							<Button type="submit" variant="contained" color="primary">
