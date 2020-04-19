@@ -1,10 +1,6 @@
 /* eslint-disable default-case */
 import React, { useEffect, useState } from 'react';
-import TextField from '@material-ui/core/TextField';
-import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import { makeStyles } from '@material-ui/core/styles';
 import { TextFieldFormsy, SelectFormsy, CheckboxFormsy } from '@fuse/core/formsy';
 
