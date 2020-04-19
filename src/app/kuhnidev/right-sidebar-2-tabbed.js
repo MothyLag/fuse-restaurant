@@ -73,6 +73,7 @@ function CardedRightSidebar2TabbedSample() {
 						<div>
 							<h3 className="mb-16">Item One</h3>
 							<DemoContent />
+							<HeaderSalon />
 						</div>
 					)}
 					{selectedTab === 1 && (
@@ -114,20 +115,12 @@ function CardedRightSidebar2TabbedSample() {
 				</div>
 			}
 			rightSidebarHeader={
-				<div style={{
-					display: 'flex',
-					height: '100%',
-					flexDirection: 'column',
-					justifyContent: 'space-between',
-					paddingTop: '2.4rem'
-					}}
-				>
-					<h4>Sidebar Header</h4>
-					<HeaderSalon TipoSala="Sala" IdEdit='34'/>
+				<div>
+					<h4 className="p-24">Sidebar Header</h4>
 				</div>
 			}
 			rightSidebarContent={
-				<div className="p-24">					
+				<div className="p-24">
 					<h4>Sidebar Content</h4>
 					<br />
 					<DemoSidebarContent />
