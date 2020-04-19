@@ -194,6 +194,7 @@ export default props => {
 									type="text"
 									placeholder={item[1]}
 									label={item[0]}
+									value={item[1]}
 								/>
 							))
 						) : (

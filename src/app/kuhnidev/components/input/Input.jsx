@@ -172,6 +172,7 @@ export default props => {
 				type={type}
 				// define el placeholder del input
 				placeholder={placeholder}
+				value={value}
 			/>
 			{/* <input
 				disabled={disabled}
