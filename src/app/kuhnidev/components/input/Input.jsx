@@ -176,15 +176,7 @@ export default props => {
 	if (type === 'text' && name === 'busy') {
 		return (
 			<div id={id} required={required} style={stylesDiv}>
-				<CheckboxFormsy
-					variant="outlined"
-					name={name}
-					value={value}
-					label={name}
-					validations={{
-						equals: true
-					}}
-				/>
+				<CheckboxFormsy variant="outlined" name={name} value={value} label={name} />
 			</div>
 		);
 	}
