@@ -26,11 +26,11 @@ const useModuleSchema = (baseUrl, moduleName) => {
 	const url = `${baseUrl}/api/modules/module/${moduleName}/v1/schema`;
 
 	const [error, setError] = useState(null);
-	const [schema, setSchema] = useState(null);
+	const [schema, setSchema] = useState([]);
 
 	useEffect(() => {
 		setError(null);
-		setSchema(null);
+		setSchema([]);
 		(async () => {
 			const response = await fetch(url);
 			if (!response.ok) {
@@ -311,7 +311,7 @@ export default () => {
 			}
 			content={
 				<div className="p-24">
-					<Mesh />
+					<Mesh zone={schema[0]} />
 				</div>
 			}
 			rightSidebarHeader={
