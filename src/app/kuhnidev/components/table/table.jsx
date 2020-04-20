@@ -3,7 +3,7 @@ import './table.css';
 import { Icon } from '@material-ui/core';
 
 export const TableRestaurant = props => {
-	const { table, onAdd, column, row } = props;
+	const { table, onAdd, column, row,onEdit } = props;
 	const [hovered, setHovered] = useState(false);
 	const [empty, setEmpty] = useState(true);
 	useEffect(() => {
@@ -12,7 +12,7 @@ export const TableRestaurant = props => {
 		}
 	}, [table]);
 
-	if (empty === false) return <div className="table">{table.number}</div>;
+	if (empty === false) return <div onClick={()=>onEdit(table)} className="table">{table.number}</div>;
 
 	return (
 		<div
