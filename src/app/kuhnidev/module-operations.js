@@ -332,7 +332,7 @@ export default () => {
 									onEdit={table => console.log(table)}
 									zone={tabs[index]}
 									onAdd={(column, row) => {
-										console.log(column, row);
+										console.log('column and row: ', column, row);
 									}}
 								/>
 							);
