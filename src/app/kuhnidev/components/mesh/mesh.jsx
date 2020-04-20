@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './mesh.css';
 import { TableRestaurant } from '../table/table';
 export const Mesh = props => {
-	const { zone } = props;
+	const { zone, onAdd } = props;
 	let rows = new Array(20);
 	for (let i = 0; i < rows.length; i++) {
 		rows[i] = new Array(20);
@@ -23,7 +23,7 @@ export const Mesh = props => {
 			{rowsState.map((row, rowIndex) => (
 				<div key={`zoneRow${rowIndex}`} className="zone__row">
 					{row.map((column, columnIndex) => {
-						return <TableRestaurant table={column} />;
+						return <TableRestaurant onAdd={onAdd} table={column} column={columnIndex} row={rowIndex} />;
 					})}
 				</div>
 			))}
