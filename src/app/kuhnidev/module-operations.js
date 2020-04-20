@@ -11,7 +11,7 @@ import Icon from '@material-ui/core/Icon';
 import IconButton from '@material-ui/core/IconButton';
 import Hidden from '@material-ui/core/Hidden';
 import Formsy from 'formsy-react';
-import {TextFieldFormsy} from '@fuse/core/formsy';
+import { TextFieldFormsy } from '@fuse/core/formsy';
 
 import DemoContent from '@fuse/core/DemoContent';
 import DemoSidebarContent from '@fuse/core/DemoSidebarContent';
@@ -143,8 +143,8 @@ export default () => {
 
 	const [tabsReady, setTabsReady] = useState(false);
 
-	const [buttonConfiguration,setButtonConfiguration] = useState(false);
-	const [newZone,setNewZone] = useState(false);
+	const [buttonConfiguration, setButtonConfiguration] = useState(false);
+	const [newZone, setNewZone] = useState(false);
 
 	useEffect(() => {
 		if (schema) {
@@ -155,21 +155,19 @@ export default () => {
 		}
 	}, [schema]);
 
-	const addZone = (data) => {
+	const addZone = data => {
 		let addObject = tabs;
 		let newObject = {};
 
 		Object.keys(tabs[0]).map(item => {
 			newObject[item] = data.zone;
-			newObject.fields = [{name:'new'}]
+			newObject.fields = [{ name: 'new' }];
 		});
 
 		addObject.push(newObject);
 		console.log(addObject);
 		setTabs(addObject);
-		
-		if (tabsReady === false)
-		{
+		if (tabsReady === false) {
 			setTabsReady(true);
 		} else {
 			setTabsReady(false);
@@ -278,17 +276,33 @@ export default () => {
 						<div className="flex-1">
 							<h4>ZONAS Y MESAS</h4>
 						</div>
-						<div >
-							{
-								buttonConfiguration !== true
-								?
-								<Button variant="contained" onClick={() => setButtonConfiguration(true)}>configurar zonas y mesas</Button>
-								: 
+						<div>
+							{buttonConfiguration !== true ? (
+								<Button variant="contained" onClick={() => setButtonConfiguration(true)}>
+									configurar zonas y mesas
+								</Button>
+							) : (
 								<React.Fragment>
-									<Button variant="contained" color={'secondary'} onClick={() => {setNewZone(true);}}>nueva zona</Button>
-									<Button variant="contained" onClick={() => {setButtonConfiguration(false);setNewZone(false);}}>cancelar</Button>
+									<Button
+										variant="contained"
+										color={'secondary'}
+										onClick={() => {
+											setNewZone(true);
+										}}
+									>
+										nueva zona
+									</Button>
+									<Button
+										variant="contained"
+										onClick={() => {
+											setButtonConfiguration(false);
+											setNewZone(false);
+										}}
+									>
+										cancelar
+									</Button>
 								</React.Fragment>
-							}
+							)}
 						</div>
 					</div>
 				</div>
@@ -311,7 +325,19 @@ export default () => {
 			}
 			content={
 				<div className="p-24">
-					<Mesh />
+					{tabs.map((tab, index) => {
+						if (columns != undefined && tab.name === columns[0]) {
+							return (
+								<Mesh
+									onEdit={table => console.log(table)}
+									zone={tabs[index]}
+									onAdd={(column, row) => {
+										console.log(column, row);
+									}}
+								/>
+							);
+						}
+					})}
 				</div>
 			}
 			rightSidebarHeader={
@@ -321,24 +347,29 @@ export default () => {
 			}
 			rightSidebarContent={
 				<div className="p-24">
-					{
-						newZone !== true
-						?
+					{newZone !== true ? (
 						<h4>{'< Seleccione una mesa'}</h4>
-						:
-						<Formsy onValidSubmit={(data) => {addZone(data)}}>
-							<TextFieldFormsy
-								type="text"
-								name="zone"
-								label="Zone"
-								variant="outlined"
-								required
-							/>
-							<Button variant="contained" onClick={() => {setButtonConfiguration(false);setNewZone(false);}}>cancelar</Button>
-							<Button type='submit' variant="contained" color={'secondary'} onClick={() => {}}>guardar</Button>
+					) : (
+						<Formsy
+							onValidSubmit={data => {
+								addZone(data);
+							}}
+						>
+							<TextFieldFormsy type="text" name="zone" label="Zone" variant="outlined" required />
+							<Button
+								variant="contained"
+								onClick={() => {
+									setButtonConfiguration(false);
+									setNewZone(false);
+								}}
+							>
+								cancelar
+							</Button>
+							<Button type="submit" variant="contained" color={'secondary'} onClick={() => {}}>
+								guardar
+							</Button>
 						</Formsy>
-						
-					}
+					)}
 				</div>
 			}
 			innerScroll
