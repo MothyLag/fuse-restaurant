@@ -17,25 +17,25 @@ import CancelIcon from '@material-ui/icons/Cancel';
 import Input from '../input/Input';
 
 export default props => {
-	const { fieldsApi = [], id, datas = {}, showForm } = props;
+	const { fieldsApi = {}, id, datas = {}, showForm } = props;
 	// const [dataForm, setDataForm] = useState(datas);
 	const [apiDataCalled, setApiDataCalled] = useState();
 	const [openForm, SetOpenForm] = useState(showForm);
 	const [openButtonD, SetOpenButtonD] = useState(false);
 	const [openButtonE, SetOpenButtonE] = useState(false);
-	const {
-		0: {
-			name,
-			label,
-			collection,
-			fields: {
-				0: { tables }
-			}
-		}
-	} = fieldsApi;
-	const ObjectTable = Object.entries(tables);
-	const ObjectT2 = Object.entries(ObjectTable[0][1]);
-
+	// const {
+	// 	0: {
+	// 		name,
+	// 		label,
+	// 		collection,
+	// 		fields: {
+	// 			0: { tables }
+	// 		}
+	// 	}
+	// } = fieldsApi;
+	// const ObjectTable = Object.entries(tables);
+	// const ObjectT2 = Object.entries(ObjectTable[0][1]);
+	debugger;
 	useEffect(() => {
 		(async function() {
 			const response = await fetch('https://kapi-zonas.now.sh/api/zonas/docs', {
@@ -109,7 +109,7 @@ export default props => {
 		// define el id del formulario al del padre
 		<>
 			<section style={stylesSection}>
-				<h2>{name}</h2>
+				<h2>{fieldsApi !== null ? fieldsApi.name : null}</h2>
 				<div>
 					<Button
 						style={{ marginRight: '20px' }}
@@ -133,7 +133,7 @@ export default props => {
 					</Button>
 				</div>
 			</section>
-			{openForm ? (
+			{openForm !== null ? (
 				<>
 					<Button
 						style={{
@@ -186,27 +186,32 @@ export default props => {
 						col: 1
 						row: 3
 						busy: true */}
-						{ObjectTable ? (
-							ObjectT2.map((item, i) => (
-								<Input
-									stylesDiv={divStyleForm}
-									name={item[0]}
-									type={
-										item[0] !== 'number' &&
-										item[0] !== 'col' &&
-										item[0] !== 'row' &&
-										item[0] !== 'busy'
-											? 'select'
-											: 'text'
-									}
-									placeholder={item[1]}
-									label={item[0]}
-									value={item[1]}
-									disabled={false}
-									defaultValue={item[1]}
-									id={i}
-								/>
-							))
+						{fieldsApi ? (
+							Object.entries(fieldsApi).map((item, i) => {
+								// console.log(Object.entries(fieldsApi));
+								// console.log(fieldsApi)
+								// console.log(item);
+								return (
+									<Input
+										stylesDiv={divStyleForm}
+										name={item[0]}
+										type={
+											item[0] !== 'number' &&
+											item[0] !== 'col' &&
+											item[0] !== 'row' &&
+											item[0] !== 'busy'
+												? 'select'
+												: 'text'
+										}
+										placeholder={item[1]}
+										label={item[0]}
+										value={item[1]}
+										disabled={false}
+										defaultValue={item[1]}
+										id={i}
+									/>
+								);
+							})
 						) : (
 							<div>uhuh</div>
 						)}
