@@ -32,13 +32,14 @@ const useModuleSchema = (baseUrl, moduleName) => {
 		setError(null);
 		setSchema(null);
 		(async () => {
-			const response = await fetch(url);
-			if (!response.ok) {
-				const error = await response.text();
+			//const response = await fetch(url);
+			// if (!response.ok) {
+			if (false) {
+				//const error = await response.text();
 				setError(error);
 				return;
 			}
-			const schema = await response.json();
+			//const schema = await response.json();
 			//setSchema(schema);
 			console.log(schema);
 			let data = [
