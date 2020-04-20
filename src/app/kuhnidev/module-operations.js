@@ -297,7 +297,12 @@ export default () => {
 			}
 			content={
 				<div className="p-24">
-					<Mesh zone={schema[0]} />
+					<Mesh
+						zone={schema[0]}
+						onAdd={(column, row) => {
+							console.log(column, row);
+						}}
+					/>
 				</div>
 			}
 			rightSidebarHeader={
