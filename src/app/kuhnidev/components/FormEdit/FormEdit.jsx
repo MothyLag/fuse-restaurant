@@ -15,14 +15,16 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Input from '../input/Input';
+import { useTable } from 'react-table';
 
 export default props => {
 	const { fieldsApi = {}, id, datas = {}, showForm } = props;
 	// const [dataForm, setDataForm] = useState(datas);
 	const [apiDataCalled, setApiDataCalled] = useState();
-	const [openForm, SetOpenForm] = useState(showForm);
+	const [openForm, SetOpenForm] = useState(false);
 	const [openButtonD, SetOpenButtonD] = useState(false);
-	const [openButtonE, SetOpenButtonE] = useState(false);
+
+	const [apitFields, setApi] = useState({});
 	// const {
 	// 	0: {
 	// 		name,
@@ -35,7 +37,7 @@ export default props => {
 	// } = fieldsApi;
 	// const ObjectTable = Object.entries(tables);
 	// const ObjectT2 = Object.entries(ObjectTable[0][1]);
-	debugger;
+	// debugger;
 	useEffect(() => {
 		(async function() {
 			const response = await fetch('https://kapi-zonas.now.sh/api/zonas/docs', {
@@ -60,11 +62,15 @@ export default props => {
 		})();
 	}, []);
 
+	useEffect(() => {
+		setApi(fieldsApi);
+	}, [fieldsApi]);
+
 	const divStyleForm = {
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
-		padding: '10px'
+		padding: '0px'
 	};
 	const stylesSection = {
 		width: '100%',
@@ -77,6 +83,7 @@ export default props => {
 	const onHandleDeleteSala = variable => {
 		const zonaId = variable;
 		console.log('delete');
+		setApi(false);
 		(async function() {
 			const response = await fetch(`https://kapi-marcas.badillosoft.now.sh/api/zonas/${zonaId}/delete`, {
 				method: 'POST',
@@ -104,52 +111,52 @@ export default props => {
 	const onHandleCancel = () => {
 		SetOpenForm(false);
 	};
-
+	console.log(apitFields);
 	return (
 		// define el id del formulario al del padre
 		<>
-			<section style={stylesSection}>
-				<h2>{fieldsApi !== null ? fieldsApi.name : null}</h2>
-				<div>
-					<Button
-						style={{ marginRight: '20px' }}
-						variant="contained"
-						color="primary"
-						onClick={onHandleDeleteSala}
-						disabled={openButtonD}
-					>
-						<DeleteForeverIcon />
-					</Button>
-					<Button
-						variant="contained"
-						color="primary"
-						onClick={() => {
-							SetOpenForm(true);
-							// SetOpenButtonD(true);
-						}}
-						disabled={openButtonE}
-					>
-						<EditIcon />
-					</Button>
-				</div>
-			</section>
-			{openForm !== null ? (
+			{apitFields && openForm !== true ? (
+				<section style={stylesSection}>
+					<h2>{fieldsApi && openForm !== null ? fieldsApi.name : null}</h2>
+					<div>
+						<Button
+							style={{ marginRight: '20px' }}
+							variant="contained"
+							color="primary"
+							onClick={onHandleDeleteSala}
+							disabled={openButtonD}
+						>
+							<DeleteForeverIcon />
+						</Button>
+						<Button
+							variant="contained"
+							color="primary"
+							onClick={() => {
+								SetOpenForm(true);
+							}}
+						>
+							<EditIcon />
+						</Button>
+					</div>
+				</section>
+			) : null}
+			{openForm ? (
 				<>
-					<Button
-						style={{
-							position: 'absolute',
-							right: '1%'
-						}}
-						onClick={() => {
-							SetOpenForm(false);
-							// SetOpenButtonD(true);
-						}}
-					>
-						<CancelIcon />
-					</Button>
+					{openForm ? (
+						<Button
+							style={{
+								position: 'absolute',
+								right: '1%'
+							}}
+							onClick={() => {
+								SetOpenForm(false);
+							}}
+						>
+							<CancelIcon />
+						</Button>
+					) : null}
 					<Formsy
 						onValidSubmit={async data => {
-							// SetOpenButtonD(true)
 							const response = await fetch('https://kapi-marcas.badillosoft.now.sh/api/marcas/new', {
 								method: 'POST',
 								headers: {
@@ -186,7 +193,7 @@ export default props => {
 						col: 1
 						row: 3
 						busy: true */}
-						{fieldsApi ? (
+						{fieldsApi && openForm ? (
 							Object.entries(fieldsApi).map((item, i) => {
 								// console.log(Object.entries(fieldsApi));
 								// console.log(fieldsApi)
@@ -213,21 +220,23 @@ export default props => {
 								);
 							})
 						) : (
-							<div>uhuh</div>
+							<div>Click en algun cuadro para editar</div>
 						)}
-						<div style={divStyleForm}>
-							<Button
-								variant="contained"
-								color="default"
-								style={{ marginRight: '20px' }}
-								onClick={onHandleCancel}
-							>
-								Cancelar
-							</Button>
-							<Button type="submit" variant="contained" color="primary">
-								actualizar
-							</Button>
-						</div>
+						{fieldsApi && openForm ? (
+							<div style={divStyleForm}>
+								<Button
+									variant="contained"
+									color="default"
+									style={{ marginRight: '10px' }}
+									onClick={onHandleCancel}
+								>
+									Cancelar
+								</Button>
+								<Button type="submit" variant="contained" color="primary">
+									actualizar
+								</Button>
+							</div>
+						) : null}
 					</Formsy>
 				</>
 			) : null}

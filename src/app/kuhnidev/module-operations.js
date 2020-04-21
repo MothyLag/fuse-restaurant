@@ -374,7 +374,7 @@ export default () => {
 							</Button>
 						</Formsy>
 					)}
-					{<FormEdit id="2-f" fieldsApi={tablesChange} showForm={true} />}
+					{<FormEdit id="2-f" fieldsApi={tablesChange} />}
 				</div>
 			}
 			innerScroll
