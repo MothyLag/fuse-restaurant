@@ -73,7 +73,7 @@ function CardedRightSidebar2TabbedSample() {
 						<div>
 							<h3 className="mb-16">Item One</h3>
 							<DemoContent />
-							<HeaderSalon />
+							{/* <HeaderSalon /> */}
 						</div>
 					)}
 					{selectedTab === 1 && (

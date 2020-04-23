@@ -15,8 +15,12 @@ import { TextFieldFormsy } from '@fuse/core/formsy';
 
 import DemoContent from '@fuse/core/DemoContent';
 import DemoSidebarContent from '@fuse/core/DemoSidebarContent';
-import { Mesh } from '../kuhnidev/components/mesh/mesh';
+import { Mesh } from './components/mesh/mesh';
 import OneTable from './components/OneTable';
+
+//
+import FormEdit from './components/FormEdit/FormEdit';
+//
 
 const useStyles = makeStyles({
 	layoutRoot: {}
@@ -32,17 +36,17 @@ const useModuleSchema = (baseUrl, moduleName) => {
 		setError(null);
 		setSchema(null);
 		(async () => {
-			//const response = await fetch(url);
+			// const response = await fetch(url);
 			// if (!response.ok) {
 			if (false) {
-				//const error = await response.text();
+				// const error = await response.text();
 				setError(error);
 				return;
 			}
-			//const schema = await response.json();
-			//setSchema(schema);
+			// const schema = await response.json();
+			// setSchema(schema);
 			console.log(schema);
-			let data = [
+			const data = [
 				{
 					name: 'zona1',
 					label: 'zona1',
@@ -150,15 +154,15 @@ export default () => {
 	useEffect(() => {
 		if (schema) {
 			console.log(schema);
-			//setTabs(schema.operations);
+			// setTabs(schema.operations);
 			setTabs(schema);
 			setTabsReady(true);
 		}
 	}, [schema]);
 
 	const addZone = data => {
-		let addObject = tabs;
-		let newObject = {};
+		const addObject = tabs;
+		const newObject = {};
 
 		Object.keys(tabs[0]).map(item => {
 			newObject[item] = data.zone;
@@ -203,14 +207,14 @@ export default () => {
 	}, [selectedTab]);
 
 	const [rows, setRows] = useState(null);
-
+	const [tablesChange, setTablesChange] = useState(null);
 	useEffect(() => {
 		if (records) {
 			console.log('records', records);
 			const rows = [];
-			for (let record of records.results) {
+			for (const record of records.results) {
 				const cells = [];
-				for (let columnName of columns) {
+				for (const columnName of columns) {
 					const value = record[columnName] || '-';
 
 					let render = <span>{value}</span>;
@@ -283,10 +287,10 @@ export default () => {
 									configurar zonas y mesas
 								</Button>
 							) : (
-								<React.Fragment>
+								<>
 									<Button
 										variant="contained"
-										color={'secondary'}
+										color="secondary"
 										onClick={() => {
 											setNewZone(true);
 										}}
@@ -302,7 +306,7 @@ export default () => {
 									>
 										cancelar
 									</Button>
-								</React.Fragment>
+								</>
 							)}
 						</div>
 					</div>
@@ -330,7 +334,7 @@ export default () => {
 						if (columns != undefined && tab.name === columns[0]) {
 							return (
 								<Mesh
-									onEdit={table => console.log(table)}
+									onEdit={table => setTablesChange(table)}
 									zone={tabs[index]}
 									onAdd={(column, row) => {
 										console.log(column, row);
@@ -366,11 +370,12 @@ export default () => {
 							>
 								cancelar
 							</Button>
-							<Button type="submit" variant="contained" color={'secondary'} onClick={() => {}}>
+							<Button type="submit" variant="contained" color="secondary" onClick={() => {}}>
 								guardar
 							</Button>
 						</Formsy>
 					)}
+					{<FormEdit id="2-f" fieldsApi={tablesChange} />}
 				</div>
 			}
 			innerScroll
