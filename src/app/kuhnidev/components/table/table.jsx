@@ -3,7 +3,7 @@ import './table.css';
 import { Icon } from '@material-ui/core';
 
 export const TableRestaurant = props => {
-	const { table, onAdd, column, row,onEdit } = props;
+	const { table, onAdd, column, row, onEdit } = props;
 	const [hovered, setHovered] = useState(false);
 	const [empty, setEmpty] = useState(true);
 	useEffect(() => {
@@ -12,7 +12,7 @@ export const TableRestaurant = props => {
 		}
 	}, [table]);
 
-	if (empty === false) return <div onClick={()=>onEdit(table)} className="table">{table.number}</div>;
+	// if (empty === false) return <div onClick={()=>onEdit(table)} className="table">{table.number}</div>;
 
 	return (
 		<div
@@ -21,8 +21,24 @@ export const TableRestaurant = props => {
 			onMouseLeave={() => setHovered(false)}
 			className="table--empty"
 		>
-			<div style={{ display: hovered ? 'flex' : 'none' }} className="table__content--empty">
-				<Icon className="text-white text-50 table__icon">add</Icon>
+			<div className="table__content--empty">
+				{empty ? (
+					<Icon style={{ display: hovered ? 'flex' : 'none' }} className="text-white text-50 table__icon">
+						add
+					</Icon>
+				) : (
+					<div
+						style={{
+							width: table.size == 'chica' ? '40px' : '60px',
+							height: table.size == 'chica' ? '40px' : '60px',
+							borderRadius: table.shape == 'cuadrada' ? 0 : '50%'
+						}}
+						onClick={() => onEdit(table)}
+						className="table"
+					>
+						{table.number}
+					</div>
+				)}
 			</div>
 		</div>
 	);
