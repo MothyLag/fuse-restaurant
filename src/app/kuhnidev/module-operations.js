@@ -26,11 +26,11 @@ const useModuleSchema = (baseUrl, moduleName) => {
 	const url = `${baseUrl}/api/modules/module/${moduleName}/v1/schema`;
 
 	const [error, setError] = useState(null);
-	const [schema, setSchema] = useState([]);
+	const [schema, setSchema] = useState(null);
 
 	useEffect(() => {
 		setError(null);
-		setSchema([]);
+		setSchema(null);
 		(async () => {
 			const response = await fetch(url);
 			if (!response.ok) {
