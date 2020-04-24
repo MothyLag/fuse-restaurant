@@ -49,6 +49,7 @@ export default props => {
 
 	useEffect(() => {
 		setApi(fieldsApi);
+		console.log(fieldsApi);
 	}, [fieldsApi]);
 
 	const divStyleForm = {
@@ -96,7 +97,7 @@ export default props => {
 	const onHandleCancel = () => {
 		SetOpenForm(false);
 		setApi(null);
-	};	
+	};
 	return (
 		// define el id del formulario al del padre
 		<>
@@ -129,36 +130,42 @@ export default props => {
 				<>
 					<Formsy
 						onValidSubmit={async data => {
-							const response = await fetch('https://kapi-marcas.badillosoft.now.sh/api/marcas/new', {
-								method: 'POST',
-								headers: {
-									// "Content-Type": "x-www-form-urlencoded"
-									'Content-Type': 'application/json'
-								},
-								mode: 'cors',
-								body: JSON.stringify({
-									id: `marc${Math.random()
-										.toString()
-										.slice(2)}`,
-									...data
-								})
-							});
+							if (fieldsApi.shape === '') {
+								SetOpenForm(false);
+								setApi(null);
+							} else {
+								console.log('POST');
+								SetOpenForm(false);
+								setApi(null);
+								const response = await fetch('https://kapi-marcas.badillosoft.now.sh/api/marcas/new', {
+									method: 'POST',
+									headers: {
+										// "Content-Type": "x-www-form-urlencoded"
+										'Content-Type': 'application/json'
+									},
+									mode: 'cors',
+									body: JSON.stringify({
+										id: `marc${Math.random()
+											.toString()
+											.slice(2)}`,
+										...data
+									})
+								});
 
-							if (!response.ok) {
-								const error = await response.text();
-								console.warn(error);
-								return;
+								if (!response.ok) {
+									const error = await response.text();
+									console.warn(error);
+									return;
+								}
+
+								const json = await response.json();
+								console.log(json);
 							}
-
-							const json = await response.json();
-							SetOpenButtonD(false);
-							console.log(json);
 						}}
 						// onValid={enableButton}
 						// onInvalid={disableButton}
 						// ref={formRef}
 					>
-						{/* mapea lo obtenido en la doc de la api */}
 						{/* number: 1
 						shape: "redonda"
 						size: "chica"
@@ -205,7 +212,7 @@ export default props => {
 									Cancelar
 								</Button>
 								<Button type="submit" variant="contained" color="primary">
-									actualizar
+									{fieldsApi.size === '' ? 'Agregar' : 'Actualizar'}
 								</Button>
 							</div>
 						) : null}
