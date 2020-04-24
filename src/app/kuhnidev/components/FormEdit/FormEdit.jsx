@@ -15,7 +15,6 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Input from '../input/Input';
-import { useTable } from 'react-table';
 
 export default props => {
 	const { fieldsApi = {}, id, datas = {}, showForm } = props;
@@ -76,8 +75,7 @@ export default props => {
 		width: '100%',
 		padding: '20px',
 		display: 'flex',
-		justifyContent: 'space-between',
-		background: 'orange'
+		justifyContent: 'space-between'
 	};
 
 	const onHandleDeleteSala = variable => {
@@ -110,6 +108,7 @@ export default props => {
 
 	const onHandleCancel = () => {
 		SetOpenForm(false);
+		setApi(null);
 	};
 	console.log(apitFields);
 	return (
