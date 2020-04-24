@@ -54,7 +54,7 @@ export default props => {
 			if (fieldsApi.shape === '') {
 				SetOpenForm(true);
 			}
-		}
+		}				
 	}, [fieldsApi]);
 
 	const divStyleForm = {
