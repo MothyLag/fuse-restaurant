@@ -13,7 +13,6 @@ import Formsy from 'formsy-react';
 import Button from '@material-ui/core/Button';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
-import CancelIcon from '@material-ui/icons/Cancel';
 import Input from '../input/Input';
 
 export default props => {
@@ -24,19 +23,6 @@ export default props => {
 	const [openButtonD, SetOpenButtonD] = useState(false);
 
 	const [apitFields, setApi] = useState({});
-	// const {
-	// 	0: {
-	// 		name,
-	// 		label,
-	// 		collection,
-	// 		fields: {
-	// 			0: { tables }
-	// 		}
-	// 	}
-	// } = fieldsApi;
-	// const ObjectTable = Object.entries(tables);
-	// const ObjectT2 = Object.entries(ObjectTable[0][1]);
-	// debugger;
 	useEffect(() => {
 		(async function() {
 			const response = await fetch('https://kapi-zonas.now.sh/api/zonas/docs', {
@@ -109,8 +95,7 @@ export default props => {
 	const onHandleCancel = () => {
 		SetOpenForm(false);
 		setApi(null);
-	};
-	console.log(apitFields);
+	};	
 	return (
 		// define el id del formulario al del padre
 		<>
@@ -141,19 +126,6 @@ export default props => {
 			) : null}
 			{openForm ? (
 				<>
-					{openForm ? (
-						<Button
-							style={{
-								position: 'absolute',
-								right: '1%'
-							}}
-							onClick={() => {
-								SetOpenForm(false);
-							}}
-						>
-							<CancelIcon />
-						</Button>
-					) : null}
 					<Formsy
 						onValidSubmit={async data => {
 							const response = await fetch('https://kapi-marcas.badillosoft.now.sh/api/marcas/new', {
