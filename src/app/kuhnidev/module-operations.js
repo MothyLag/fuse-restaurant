@@ -338,6 +338,15 @@ export default () => {
 									zone={tabs[index]}
 									onAdd={(column, row) => {
 										console.log(column, row);
+										setTablesChange({
+											number: '',
+											shape: "",
+											size: "",
+											col: column,
+											row,
+											busy: false,
+											group: ['']
+										});
 									}}
 								/>
 							);
