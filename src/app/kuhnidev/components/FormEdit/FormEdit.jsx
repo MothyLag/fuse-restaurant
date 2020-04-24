@@ -55,7 +55,8 @@ export default props => {
 		display: 'flex',
 		justifyContent: 'center',
 		alignItems: 'center',
-		padding: '0px'
+		padding: '0px',
+		margin: '20px 0px'
 	};
 	const stylesSection = {
 		width: '100%',
