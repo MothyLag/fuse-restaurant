@@ -16,10 +16,10 @@ import EditIcon from '@material-ui/icons/Edit';
 import Input from '../input/Input';
 
 export default props => {
-	const { fieldsApi = {}, id, datas = {}, showForm } = props;
+	const { fieldsApi = {}, id, datas = {}, showForm = false } = props;
 	// const [dataForm, setDataForm] = useState(datas);
 	const [apiDataCalled, setApiDataCalled] = useState();
-	const [openForm, SetOpenForm] = useState(false);
+	const [openForm, SetOpenForm] = useState(showForm);
 	const [openButtonD, SetOpenButtonD] = useState(false);
 
 	const [apitFields, setApi] = useState({});
@@ -49,7 +49,12 @@ export default props => {
 
 	useEffect(() => {
 		setApi(fieldsApi);
-		console.log(fieldsApi);
+		console.log(apitFields);
+		if (fieldsApi) {
+			if (fieldsApi.shape === '') {
+				SetOpenForm(true);
+			}
+		}
 	}, [fieldsApi]);
 
 	const divStyleForm = {
@@ -105,24 +110,36 @@ export default props => {
 				<section style={stylesSection}>
 					<h2>{fieldsApi && openForm !== null ? fieldsApi.name : null}</h2>
 					<div>
-						<Button
-							style={{ marginRight: '20px' }}
-							variant="contained"
-							color="primary"
-							onClick={onHandleDeleteSala}
-							disabled={openButtonD}
-						>
-							<DeleteForeverIcon />
-						</Button>
-						<Button
-							variant="contained"
-							color="primary"
-							onClick={() => {
-								SetOpenForm(true);
-							}}
-						>
-							<EditIcon />
-						</Button>
+						{fieldsApi ? (
+							<div>
+								{fieldsApi.shape !== '' ? (
+									<div>
+										<Button
+											style={{ marginRight: '20px' }}
+											variant="contained"
+											color="primary"
+											onClick={onHandleDeleteSala}
+											disabled={openButtonD}
+										>
+											<DeleteForeverIcon />
+										</Button>
+										<Button
+											variant="contained"
+											color="primary"
+											onClick={() => {
+												SetOpenForm(true);
+											}}
+										>
+											<EditIcon />
+										</Button>
+									</div>
+								) : (
+									<div></div>
+								)}
+							</div>
+						) : (
+							<div></div>
+						)}
 					</div>
 				</section>
 			) : null}
