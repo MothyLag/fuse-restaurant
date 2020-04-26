@@ -168,7 +168,10 @@ export default () => {
 
 			Object.keys(tabs[0]).map(item => {
 				newObject[item] = data.zone;
-				newObject.fields = [{ name: 'new' }];
+				newObject.fields = [{ 
+					name: data.zone,
+					tables: [],
+				}];
 			});
 
 			addObject.push(newObject);
