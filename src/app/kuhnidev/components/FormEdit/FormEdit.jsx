@@ -17,36 +17,9 @@ import Input from '../input/Input';
 
 export default props => {
 	const { fieldsApi = {}, id, datas = {}, showForm = false } = props;
-	// const [dataForm, setDataForm] = useState(datas);
-	const [apiDataCalled, setApiDataCalled] = useState();
 	const [openForm, SetOpenForm] = useState(showForm);
-	const [openButtonD, SetOpenButtonD] = useState(false);
 
 	const [apitFields, setApi] = useState({});
-	useEffect(() => {
-		(async function() {
-			const response = await fetch('https://kapi-zonas.now.sh/api/zonas/docs', {
-				method: 'GET',
-				headers: {
-					// "Content-Type": "x-www-form-urlencoded"
-					'Content-Type': 'application/json'
-				},
-				mode: 'cors'
-			});
-
-			if (!response.ok) {
-				const error = await response.text();
-				console.warn(error);
-				return;
-			}
-
-			const json = await response.json();
-			// console.log(json)
-			// console.log(fieldsApi)
-			setApiDataCalled(json);
-		})();
-	}, []);
-
 	useEffect(() => {
 		setApi(fieldsApi);
 		console.log(apitFields);
@@ -54,7 +27,7 @@ export default props => {
 			if (fieldsApi.shape === '') {
 				SetOpenForm(true);
 			}
-		}				
+		}
 	}, [fieldsApi]);
 
 	const divStyleForm = {
@@ -119,7 +92,6 @@ export default props => {
 											variant="contained"
 											color="primary"
 											onClick={onHandleDeleteSala}
-											disabled={openButtonD}
 										>
 											<DeleteForeverIcon />
 										</Button>
@@ -134,11 +106,11 @@ export default props => {
 										</Button>
 									</div>
 								) : (
-									<div></div>
+									<div />
 								)}
 							</div>
 						) : (
-							<div></div>
+							<div />
 						)}
 					</div>
 				</section>
@@ -179,21 +151,9 @@ export default props => {
 								console.log(json);
 							}
 						}}
-						// onValid={enableButton}
-						// onInvalid={disableButton}
-						// ref={formRef}
 					>
-						{/* number: 1
-						shape: "redonda"
-						size: "chica"
-						col: 1
-						row: 3
-						busy: true */}
 						{fieldsApi && openForm ? (
 							Object.entries(fieldsApi).map((item, i) => {
-								// console.log(Object.entries(fieldsApi));
-								// console.log(fieldsApi)
-								// console.log(item);
 								return (
 									<Input
 										stylesDiv={divStyleForm}
