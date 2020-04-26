@@ -16,7 +16,15 @@ export const TableRestaurant = props => {
 
 	return (
 		<div
-			onClick={() => onAdd(column, row)}
+			onClick={() => onAdd({
+				shape: '',
+				row: row,
+				col: column,
+				size: '',
+				number: '',
+				group: [],
+				busy: false
+			})}
 			onMouseEnter={() => setHovered(true)}
 			onMouseLeave={() => setHovered(false)}
 			className="table--empty"

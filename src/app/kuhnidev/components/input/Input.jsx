@@ -7,7 +7,8 @@ import { TextFieldFormsy, SelectFormsy, CheckboxFormsy } from '@fuse/core/formsy
 const nwStyle = makeStyles({
 	root: {
 		maxWidth: '250px',
-		width: '100%'
+		width: 'calc(100% - 6px)',
+		marginBottom: '10px'
 	}
 });
 const labelColor = {
@@ -80,16 +81,15 @@ export default props => {
 			</div>
 		);
 	}
-	// debugger;
 	const MenuIt = variable => {
 		const redonda = ['redonda', 'cuadrada'];
-		const shape = ['chica', 'grande'];
+		const size = ['chica', 'grande'];
 		const group = ['1', '2'];
 		switch (variable) {
 			case 'shape':
 				return redonda.map(redonde => <MenuItem value={redonde}> {redonde}</MenuItem>);
 			case 'size':
-				return shape.map(shap => <MenuItem value={shap}> {shap}</MenuItem>);
+				return size.map(shap => <MenuItem value={shap}> {shap}</MenuItem>);
 			case 'group':
 				return group.map(grp => <MenuItem value={grp}> {grp}</MenuItem>);
 
@@ -112,43 +112,6 @@ export default props => {
 				>
 					{MenuIt(name)}
 				</SelectFormsy>
-				{/* <FormControl className={selectStyles.root}>
-					<InputLabel id={id} style={labelColor}>
-						{name}
-					</InputLabel>
-					<Select
-						labelId={id}
-						onChangeCapture={e => handleSelectChange(setSelectValue, e)}
-						name={name}
-						defaultValue={selectValue}
-						disabled={disabled}
-						placeholder={name}
-					>
-						{/* {dataOptions.length < 1 && <option value="NotFound">Valor no encontrado</option>} */}
-
-				{/* {dataOptions.map((option, index) => { */}
-				{/* return ( */}
-				{/* );
-						})} */}
-				{/* </Select> */}
-				{/* </FormControl> */}
-				{/* <label>{name}</label>
-				<select
-					onChangeCapture={e => handleSelectChange(setSelectValue, e)}
-					name={name}
-					defaultValue={selectValue}
-					className="form-control mt-1"
-					disabled={disabled}
-				>
-					{dataOptions.length < 1 && <option value="NotFound">Valor no encontrado</option>}
-					{dataOptions.map((option, index) => {
-						return (
-							<option value={option[label]} key={`optionInput${index}`}>
-								{option[label]}
-							</option>
-						);
-					})}
-				</select> */}
 			</div>
 		);
 	}
@@ -182,7 +145,6 @@ export default props => {
 	}
 	return (
 		<div key={`input${i}`} style={stylesDiv}>
-			{/* <label htmlFor={name}>{name}</label> */}
 			<TextFieldFormsy
 				className={selectStyles.root}
 				label={name}
@@ -204,25 +166,6 @@ export default props => {
 				placeholder={placeholder}
 				value={value}
 			/>
-			{/* <input
-				disabled={disabled}
-				required={required}
-				// concate los indices al id del padre y al nombre del input para crear un nuevo id
-				id={id}
-				// valida que se cumpla el regex en el input
-				pattern={regex ? String(regex) : '[a-zA-Z0-9 \\s]{0,}'}
-				// define el nombre del input
-				name={name}
-				// define el valor por defecto
-				defaultValue={defaultValue || ''}
-				autoComplete="off"
-				// define el tipo de input
-				type={type}
-				// define el placeholder del input
-				placeholder={placeholder}
-				className="form-control"
-				// define si el input es requerido
-			/> */}
 		</div>
 	);
 };

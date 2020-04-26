@@ -20,6 +20,7 @@ import OneTable from './components/OneTable';
 
 //
 import FormEdit from './components/FormEdit/FormEdit';
+import Input from './components/input/Input';
 //
 
 const useStyles = makeStyles({
@@ -162,20 +163,19 @@ export default () => {
 	}, [schema]);
 
 	const addZone = data => {
-		
-			const addObject = tabs;
-			const newObject = {};
+		const addObject = tabs;
+		const newObject = {};
 
-			Object.keys(tabs[0]).map(item => {
-				newObject[item] = data.zone;
-				newObject.fields = [{ name: 'new' }];
-			});
+		Object.keys(tabs[0]).map(item => {
+			newObject[item] = data.zone;
+			newObject.fields = [{ name: 'new' }];
+		});
 
-			addObject.push(newObject);
+		addObject.push(newObject);
 
-			setTabs(addObject);
-			setTabsReady(true);
-			setNewZone(false);
+		setTabs(addObject);
+		setTabsReady(true);
+		setNewZone(false);
 	};
 
 	useEffect(() => {
@@ -293,7 +293,7 @@ export default () => {
 											setButtonConfiguration(false);
 											setNewZone(false);
 										}}
-										style={{marginRight:'10px'}}
+										style={{ marginRight: '10px' }}
 									>
 										cancelar
 									</Button>
@@ -308,7 +308,6 @@ export default () => {
 									>
 										nueva zona
 									</Button>
-									
 								</>
 							)}
 						</div>
@@ -331,31 +330,22 @@ export default () => {
 					})}
 				</Tabs>
 			}
-			content={
-				tabs.map((tab, index) => {
-					if (columns != undefined && tab.name === columns[0]) {
-						return (
-							<Mesh
-								onEdit={table => setTablesChange(table)}
-								zone={tabs[index]}
-								onAdd={(column, row) => {
-									setNewZone(false);
-									setNewTable(true);
-									setTablesChange({
-										number: '',
-										shape: "",
-										size: "",
-										col: column,
-										row,
-										busy: false,
-										group: ['']
-									});
-								}}
-							/>
-						);
-					}
-				})
-			}
+			content={tabs.map((tab, index) => {
+				if (columns != undefined && tab.name === columns[0]) {
+					return (
+						<Mesh
+							onEdit={table => setTablesChange(table)}
+							zone={tabs[index]}
+							onAdd={table => {
+								setNewZone(false);
+								setNewTable(true);
+								console.log(table);
+								setTablesChange(table);
+							}}
+						/>
+					);
+				}
+			})}
 			rightSidebarHeader={
 				<div className="p-24">
 					<h4>{String(tabs[selectedTabIndex].name).toLocaleUpperCase()}</h4>
@@ -363,47 +353,86 @@ export default () => {
 			}
 			rightSidebarContent={
 				<div className="p-24">
-					{
-						(newZone !== true && newTable !== true) && <h4>{'< Seleccione una mesa'}</h4> 
-					}
-					{
-						newZone === true && 
+					{newZone !== true && newTable !== true && <h4>{'< Seleccione una mesa'}</h4>}
+					{newZone === true && (
 						<div>
 							<Formsy
 								onValidSubmit={data => {
 									addZone(data);
 								}}
 							>
-								<TextFieldFormsy 
-									type="text" 
-									name="zone" 
-									label="Zone" 
-									variant="outlined" 
-									required
-								/>
-								<div style={{display:'flex',marginTop:'10px'}}>
-									<Button 
-										variant="contained" 
-										onClick={() => {setButtonConfiguration(false);setNewZone(false);}} 
-										style={{marginRight:'10px'}}
+								<TextFieldFormsy type="text" name="zone" label="Zone" variant="outlined" required />
+								<div style={{ display: 'flex', marginTop: '10px' }}>
+									<Button
+										variant="contained"
+										onClick={() => {
+											setButtonConfiguration(false);
+											setNewZone(false);
+										}}
+										style={{ marginRight: '10px' }}
 									>
 										cancelar
 									</Button>
-									<Button 
-										type="submit" 
-										variant="contained" 
-										color="primary" 
-										style={{marginRight:'10px'}}
+									<Button
+										type="submit"
+										variant="contained"
+										color="primary"
+										style={{ marginRight: '10px' }}
 									>
 										guardar
 									</Button>
 								</div>
 							</Formsy>
 						</div>
-					}
-					{
-						newTable === true && <FormEdit id="2-f" fieldsApi={tablesChange}/>
-					}
+					)}
+					{newTable === true && (
+						<Formsy
+							onValidSubmit={data => {
+								addZone(data);
+							}}
+						>
+							{Object.keys(tablesChange).map((item, i) => {
+								console.log(tablesChange[item]);
+								return (
+									<Input
+										name={item}
+										type={
+											item !== 'number' && item !== 'col' && item !== 'row' && item !== 'busy'
+												? 'select'
+												: 'text'
+										}
+										placeholder={item}
+										label={item}
+										value={tablesChange[item]}
+										disabled={false}
+										defaultValue={tablesChange[item]}
+										id={i}
+									/>
+								);
+							})}
+							<div style={{ display: 'flex', marginTop: '10px' }}>
+								<Button
+									variant="contained"
+									onClick={() => {
+										setButtonConfiguration(false);
+										setNewZone(false);
+										setNewTable(false);
+									}}
+									style={{ marginRight: '10px' }}
+								>
+									cancelar
+								</Button>
+								<Button
+									type="submit"
+									variant="contained"
+									color="primary"
+									style={{ marginRight: '10px' }}
+								>
+									guardar
+								</Button>
+							</div>
+						</Formsy>
+					)}
 				</div>
 			}
 			innerScroll
