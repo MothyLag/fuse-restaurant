@@ -339,7 +339,6 @@ export default () => {
 							onAdd={table => {
 								setNewZone(false);
 								setNewTable(true);
-								console.log(table);
 								setTablesChange(table);
 							}}
 						/>
@@ -391,8 +390,7 @@ export default () => {
 								addZone(data);
 							}}
 						>
-							{Object.keys(tablesChange).map((item, i) => {
-								console.log(tablesChange[item]);
+							{Object.keys(tablesChange).map((item, i) => {								
 								return (
 									<Input
 										name={item}
