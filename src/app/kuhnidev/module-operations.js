@@ -353,12 +353,13 @@ export default () => {
 				if (columns != undefined && tab.name === columns[0]) {
 					return (
 						<Mesh
-							onEdit={table => setTablesChange(table)}
+							// onEdit={table => setTablesChange(table)}
 							zone={tabs[index]}
 							onAdd={table => {
 								setNewZone(false);
 								setNewTable(true);
-								setTablesChange(table);
+								console.log(table)
+									setTablesChange(table);
 							}}
 						/>
 					);
@@ -411,7 +412,7 @@ export default () => {
 								addTable(data);
 							}}
 						>
-							{Object.keys(tablesChange).map((item, i) => {								
+							{Object.keys(tablesChange).map((item, i) => {															
 								return (
 									<Input
 										name={item}
@@ -422,9 +423,9 @@ export default () => {
 										}
 										placeholder={item}
 										label={item}
-										value={tablesChange[item]}
+										value={tablesChange[item] === 0 ? '0' : tablesChange[item] }
 										disabled={false}
-										defaultValue={tablesChange[item]}
+										defaultValue={tablesChange[item] === 0 ? '0' : tablesChange[item] }
 										id={i}
 									/>
 								);
