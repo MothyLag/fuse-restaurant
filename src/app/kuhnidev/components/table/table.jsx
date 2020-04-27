@@ -17,13 +17,13 @@ export const TableRestaurant = props => {
 	return (
 		<div
 			onClick={() => onAdd({
-				shape: '',
-				row: row,
+				shape: table.shape ? table.shape : '' ,
+				row,
 				col: column,
-				size: '',
-				number: '',
-				group: [],
-				busy: false
+				size: table.size ? table.size: '',
+				number: table.number ? table.number: '',
+				group: table.group ? table.group: '',
+				busy: table.busy ? table.busy: ''
 			})}
 			onMouseEnter={() => setHovered(true)}
 			onMouseLeave={() => setHovered(false)}
