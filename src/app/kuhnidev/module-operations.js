@@ -166,19 +166,35 @@ export default () => {
 		const addObject = tabs;
 		const newObject = {};
 
-			Object.keys(tabs[0]).map(item => {
-				newObject[item] = data.zone;
-				newObject.fields = [{ 
-					name: data.zone,
-					tables: [],
-				}];
-			});
+		Object.keys(tabs[0]).map(item => {
+			newObject[item] = data.zone;
+			newObject.fields = [{ 
+				name: data.zone,
+				tables: [],
+			}];
+		});
 
 		addObject.push(newObject);
 
 		setTabs(addObject);
 		setTabsReady(true);
 		setNewZone(false);
+	};
+
+	const addTable = data => {
+		let addObject = tabs;
+
+		addObject.map(tab => {
+			if (tab.name === tabs[selectedTabIndex].name)
+			{
+				tab.fields[0].tables.push(data);
+				console.log(tab)
+			}
+		});
+
+		setTabs(addObject);
+		setTabsReady(true);
+		setNewTable(false);
 	};
 
 	useEffect(() => {
@@ -360,6 +376,7 @@ export default () => {
 						<div>
 							<Formsy
 								onValidSubmit={data => {
+									setTabsReady(false);
 									addZone(data);
 								}}
 							>
@@ -390,7 +407,8 @@ export default () => {
 					{newTable === true && (
 						<Formsy
 							onValidSubmit={data => {
-								addZone(data);
+								setTabsReady(false);
+								addTable(data);
 							}}
 						>
 							{Object.keys(tablesChange).map((item, i) => {								
